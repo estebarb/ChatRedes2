@@ -54,7 +54,7 @@ public class CChat {
 	System.out.println(msg.getMessage());
 	Platform.runLater(() -> {
 	    mixPeers(msg.getPeers());
-	    messagesProperty().add(0, msg);
+	    messagesProperty().add(msg);
 	});
     }
 

@@ -13,7 +13,10 @@ import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,6 +24,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import servers.Servidor;
 
 /**
@@ -92,23 +97,44 @@ public class FXMLChatController implements Initializable {
 	//Bindings.bindBidirectional(TableMsgs.itemsProperty(),
 	//	getChat().messagesProperty());
 
+	EventHandler<KeyEvent> keyEventHandler
+		= new EventHandler<KeyEvent>() {
+		    public void handle(KeyEvent keyEvent) {
+			if (keyEvent.getCode() == KeyCode.ENTER) {
+			    keyEvent.consume();
+			    Enviar();
+			}
+		    }
+		};
+
+	txtMensaje.setOnKeyReleased(keyEventHandler);
+
 	cmdEnviar.setOnAction((ActionEvent e) -> {
-	    Enviar(e);
+	    Enviar();
 	});
+
     }
 
     public void UpdateBindings() {
 	TableUsers.setItems(getChat().peersProperty());
 	TableMsgs.setItems(getChat().messagesProperty());
+	getChat().messagesProperty().addListener(new ChangeListener() {
+	    @Override
+	    public void changed(ObservableValue o, Object oldVal, Object newVal) {
+		TableMsgs.scrollTo(getChat().getMessages().size()-1);
+	    }
+	});
     }
 
     @FXML
     /**
      * Envía un mensaje a todos los miembros de la conversación
      */
-    private void Enviar(ActionEvent e) {
+    private void Enviar() {
 	Servidor srv = Servidor.getInstance();
 	String texto = txtMensaje.getText();
+	txtMensaje.setText("");
+
 	//System.out.println("- click ->" + texto);
 	CMessage msg = new CMessage(getChat(), texto);
 	srv.SendMessage(msg);

@@ -6,42 +6,37 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="javafx.scene.layout.VBox" prefHeight="367.0" prefWidth="351.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
-    <BorderPane>
-	<bottom>
-	    <BorderPane prefHeight="200.0" prefWidth="200.0">
-		<center>
-		    <TextArea fx:id="txtMensaje" prefWidth="-1.0" wrapText="true" />
-		</center>
-		<right>
-		    <VBox prefHeight="200.0" prefWidth="100.0">
-			<children>
-			    <Button fx:id="cmdEnviar" mnemonicParsing="false" text="Enviar" />
-			</children>
-		    </VBox>
-		</right>
-	    </BorderPane>
-	</bottom>
-	<center>
-	    <TableView fx:id="TableMsgs" prefHeight="200.0" prefWidth="200.0">
-		<columns>
-		    <TableColumn prefWidth="75.0" text="Usuario" fx:id="colSender" />
-		    <TableColumn prefWidth="75.0" text="Hora" fx:id="colMsgTime" />
-		    <TableColumn prefWidth="75.0" text="Mensaje" fx:id="colMessage" />
-		</columns>
-	    </TableView>
-	</center>
-	<right>
-	    <VBox prefHeight="200.0" prefWidth="100.0">
-		<children>
-		    <Label text="Participantes:" />
-		    <TableView fx:id="TableUsers" prefHeight="200.0" prefWidth="200.0">
-			<columns>
-			    <TableColumn prefWidth="75.0" text="Usuario" fx:id="colUsers" />
-			</columns>
-		    </TableView>
-		</children>
-	    </VBox>
-	</right>
-    </BorderPane>
+<fx:root type="javafx.scene.layout.VBox" prefHeight="480.0" prefWidth="563.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <BorderPane VBox.vgrow="ALWAYS">
+    <bottom>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+        <center>
+          <TextArea fx:id="txtMensaje" prefWidth="-1.0" wrapText="true" />
+        </center>
+        <right>
+          <Button fx:id="cmdEnviar" defaultButton="true" maxHeight="1.7976931348623157E308" mnemonicParsing="false" text="Enviar" BorderPane.alignment="CENTER" />
+        </right>
+      </BorderPane>
+    </bottom>
+    <center>
+      <TableView fx:id="TableMsgs" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true">
+        <columns>
+          <TableColumn editable="false" prefWidth="75.0" text="Usuario" fx:id="colSender" />
+          <TableColumn editable="false" prefWidth="75.0" text="Hora" fx:id="colMsgTime" />
+          <TableColumn editable="false" prefWidth="75.0" text="Mensaje" fx:id="colMessage" />
+        </columns>
+      </TableView>
+    </center>
+    <right>
+      <VBox prefHeight="-1.0" prefWidth="-1.0">
+        <children>
+          <TableView fx:id="TableUsers" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <columns>
+              <TableColumn editable="false" maxWidth="300.0" prefWidth="150.0" text="Participantes" fx:id="colUsers" />
+            </columns>
+          </TableView>
+        </children>
+      </VBox>
+    </right>
+  </BorderPane>
 </fx:root>
