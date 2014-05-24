@@ -38,10 +38,15 @@ import javafx.collections.ObservableList;
 public class Servidor {
 
     private final StringProperty nickname = new SimpleStringProperty();
-    private static CPeer me;
 
     public CPeer getMe() {
-	return me;
+	String myHostname = "127.0.0.1";
+	try {
+	    myHostname = InetAddress.getLocalHost().getHostAddress();
+	} catch (UnknownHostException ex) {
+	    Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+	}
+	return new CPeer(getNickname(), myHostname);
     }
 
     public String getNickname() {
@@ -98,14 +103,6 @@ public class Servidor {
 
 	clienteBroadcast.setDaemon(true);
 	clienteBroadcast.start();
-
-	String myHostname = "";
-	try {
-	    myHostname = InetAddress.getLocalHost().getHostAddress();
-	} catch (UnknownHostException ex) {
-	    Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
-	}
-	me = new CPeer(getNickname(), myHostname);
     }
 
     public synchronized static Servidor getInstance() {
@@ -166,11 +163,9 @@ public class Servidor {
 	    Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
 	}
 
-	ReceiveMessage(msg);
+	//ReceiveMessage(msg);
 	for (CPeer peer : peers) {
-	    if (!peer.getHostAddress().equals(myHostname)) {
 		SendMessage(peer, msg);
-	    }
 	};
     }
 

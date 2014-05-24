@@ -90,7 +90,7 @@ public class FrmMainController implements Initializable {
 			Servidor srv = Servidor.getInstance();
 			srv.getChats().put(chat.getChatID(), chat);
 			chat.peersProperty().add(peer);
-			chat.peersProperty().add(Servidor.getInstance().getMe());
+			chat.peersProperty().add(srv.getMe());
 			ChatTab ctl_tab = new ChatTab(peer.getNickname(), chat);
 			Tab tab = new Tab(peer.getNickname());
 			tab.setContent(ctl_tab);

@@ -8,6 +8,7 @@ package entities;
 import java.util.ArrayList;
 import servers.Servidor;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -37,11 +38,10 @@ public class CChat {
 	this.messages.add(firstMsg);
 
 	this.peers = new SimpleListProperty<>(FXCollections.observableArrayList(new ArrayList<CPeer>()));
-	if (peers != null) {
-	    for (CPeer p : peers) {
-		peersProperty().add(p);
-	    }
-	}
+	Platform.runLater(() -> {
+	    mixPeers(firstMsg.getPeers());
+	    mixPeers(peers);
+	});
     }
 
     public void SendMessage(String message) {
@@ -52,8 +52,10 @@ public class CChat {
 
     public void ReceiveMessage(CMessage msg) {
 	System.out.println(msg.getMessage());
-	mixPeers(msg);
-	messagesProperty().add(0, msg);
+	Platform.runLater(() -> {
+	    mixPeers(msg.getPeers());
+	    messagesProperty().add(0, msg);
+	});
     }
 
     public String getChatID() {
@@ -92,19 +94,23 @@ public class CChat {
 	return peers;
     }
 
-    private void mixPeers(CMessage msg) {
-	if (msg == null || msg.getPeers() == null) {
-	    return;
-	}
-	for (CPeer np : msg.getPeers()) {
+    private void mixPeers(List<CPeer> lstPeers) {
+	for (CPeer np : lstPeers) {
 	    boolean encontrado = false;
 	    for (CPeer op : getPeers()) {
+		// Si ya estaba conectado se actualizan los datos:
 		if (np.getHostAddress().equals(op.getHostAddress())) {
 		    op.setNickname(np.getNickname());
 		    encontrado = true;
+		    break;
+		}
+		// Si soy yo mismo entonces no me agrego...
+		if(np.getNickname().equals(Servidor.getInstance().getNickname())
+			&& !np.getHostAddress().startsWith("127.")){
+		    encontrado = true;
 		}
 	    }
-	    if (!encontrado) {
+	    if (!encontrado && !np.getHostAddress().startsWith("127.")) {
 		peersProperty().add(np);
 	    }
 	}

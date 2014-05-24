@@ -31,6 +31,8 @@ import servers.Servidor;
 public class ChatTab extends VBox {
 
     private final ObjectProperty<CChat> chat = new SimpleObjectProperty<>();
+    
+    private FXMLChatController ctrl;
 
     public CChat getChat() {
 	return chat.get();
@@ -38,6 +40,7 @@ public class ChatTab extends VBox {
 
     public void setChat(CChat value) {
 	chat.set(value);
+	ctrl.UpdateBindings();
     }
 
     public ObjectProperty chatProperty() {
@@ -52,7 +55,7 @@ public class ChatTab extends VBox {
     public ChatTab(String string, CChat chat) {
 	FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
 		"FXMLChat.fxml"));
-	FXMLChatController ctrl = new FXMLChatController();
+	ctrl = new FXMLChatController();
 	fxmlLoader.setController(ctrl);
 	fxmlLoader.setRoot(this);
 

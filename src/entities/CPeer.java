@@ -6,6 +6,7 @@
 
 package entities;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -14,7 +15,7 @@ import java.util.GregorianCalendar;
  *
  * @author esteban
  */
-public class CPeer {
+public class CPeer implements Serializable{
     private String nickname;
     private String HostAddress;
     private Date lastPing;

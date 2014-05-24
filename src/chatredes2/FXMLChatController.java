@@ -109,7 +109,7 @@ public class FXMLChatController implements Initializable {
     private void Enviar(ActionEvent e) {
 	Servidor srv = Servidor.getInstance();
 	String texto = txtMensaje.getText();
-	System.out.println("- click ->" + texto);
+	//System.out.println("- click ->" + texto);
 	CMessage msg = new CMessage(getChat(), texto);
 	srv.SendMessage(msg);
     }
