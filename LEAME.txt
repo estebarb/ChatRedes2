@@ -1,0 +1,27 @@
+Universidad de Costa Rica
+Proyecto de Laboratorio de Redes
+Chat en LAN
+
+Hecho por Esteban Rodríguez Betancourt
+B15512
+
+
+Requisitos:
+El proyecto requiere Java 8, se puede descargar
+un Netbeans con el JDK desde el siguiente link:
+http://www.oracle.com/technetwork/java/javase/downloads/jdk-netbeans-jsp-142931.html
+
+Cómo usarlo:
+Al arrancar el programa este hará ping en la red, para buscar
+pares. Estos aparecerán en la lista.
+Con click derecho uno puede hacer un chat nuevo o bien añadirlos
+al chat que se está mostrando.
+
+Estado del proyecto:
+Se probó en una LAN con Ubuntu y un Xubuntu en VirtualBox (conexión
+en puente). Funcionó correctamente.
+
+Posibles fallos:
+Es posible que el firewall o la protección DDoS del router
+impida la transmisión de paquetes.
+
