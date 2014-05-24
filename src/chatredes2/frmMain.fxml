@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="457.0" prefWidth="622.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="chatredes2.FrmMainController">
+  <center>
+    <TabPane fx:id="tabPanel" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" />
+  </center>
+  <left>
+    <VBox prefHeight="-1.0" prefWidth="-1.0">
+      <children>
+        <TextField fx:id="txtNickname" prefWidth="200.0" promptText="Nickname" />
+        <ScrollPane id="ScrollPane" fitToHeight="true" fitToWidth="true" prefViewportHeight="435.0" prefViewportWidth="200.0" VBox.vgrow="ALWAYS">
+          <content>
+            <TableView fx:id="tablePeers" prefHeight="-1.0" prefWidth="-1.0" tableMenuButtonVisible="false">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Usuario" fx:id="colUser" />
+                <TableColumn prefWidth="75.0" text="Host" fx:id="colHostname" />
+              </columns>
+            </TableView>
+          </content>
+        </ScrollPane>
+      </children>
+    </VBox>
+  </left>
+</BorderPane>
