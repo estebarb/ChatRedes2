@@ -6,23 +6,13 @@
 package chatredes2;
 
 import entities.CChat;
-import entities.CMessage;
 import entities.CPeer;
 import java.io.IOException;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import servers.Servidor;
 
 /**
  *
@@ -77,7 +67,8 @@ public class ChatTab extends VBox {
      * Permite invitar a otro usuario al chat actual
      */
     public void Añadir(CPeer peer) {
-	getChat().peersProperty().add(peer);
+	getChat().AddPeer(peer);
+	//getChat().peersProperty().add(peer);
 	//getChat().getPeers().add(peer);
     }
 }

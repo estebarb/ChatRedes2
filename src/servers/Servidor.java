@@ -164,7 +164,7 @@ public class Servidor {
 	}
 
 	//ReceiveMessage(msg);
-	for (CPeer peer : peers) {
+	for (CPeer peer : msg.getPeers()) {
 		SendMessage(peer, msg);
 	};
     }

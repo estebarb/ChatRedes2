@@ -94,21 +94,29 @@ public class CChat {
 	return peers;
     }
 
+    public void AddPeer(CPeer peer) {
+	List<CPeer> lista = new ArrayList<>();
+	lista.add(peer);
+	mixPeers(lista);
+    }
+
     private void mixPeers(List<CPeer> lstPeers) {
 	for (CPeer np : lstPeers) {
 	    boolean encontrado = false;
 	    for (CPeer op : getPeers()) {
 		// Si ya estaba conectado se actualizan los datos:
-		if (np.getHostAddress().equals(op.getHostAddress())) {
+		if (np.getHostAddress().equals(op.getHostAddress()) ||
+			(np.getNickname().equals(op.getNickname()) &&
+			op.getHostAddress().startsWith("127."))) {
 		    op.setNickname(np.getNickname());
 		    encontrado = true;
 		    break;
 		}
 		// Si soy yo mismo entonces no me agrego...
-		if(np.getNickname().equals(Servidor.getInstance().getNickname())
-			&& !np.getHostAddress().startsWith("127.")){
-		    encontrado = true;
-		}
+		//if (np.getNickname().equals(Servidor.getInstance().getNickname())
+		//	&& !np.getHostAddress().startsWith("127.")) {
+		//    encontrado = true;
+		//}
 	    }
 	    if (!encontrado && !np.getHostAddress().startsWith("127.")) {
 		peersProperty().add(np);
