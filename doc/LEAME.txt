@@ -14,12 +14,15 @@ http://www.oracle.com/technetwork/java/javase/downloads/jdk-netbeans-jsp-142931.
 Cómo usarlo:
 Al arrancar el programa este hará ping en la red, para buscar
 pares. Estos aparecerán en la lista.
-Con click derecho uno puede hacer un chat nuevo o bien añadirlos
-al chat que se está mostrando.
+Con click derecho sobre cada par uno puede hacer un chat nuevo
+o bien añadirlos al chat que se está mostrando.
 
 Estado del proyecto:
-Se probó en una LAN con Ubuntu y un Xubuntu en VirtualBox (conexión
+Se probó en una LAN con Ubuntu y dos Xubuntu en VirtualBox (conexión
 en puente). Funcionó correctamente.
+
+Se llegó a probar el chat entre dos y tres miembros, y en ambos
+casos se logró hacer la conversación con éxito.
 
 Posibles fallos:
 Es posible que el firewall o la protección DDoS del router

@@ -1,0 +1,304 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+% \usepackage{menukeys}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+
+\newcommand*\keys[1]{%
+  \tikz[baseline=(key.base)]
+    \node[%
+      draw,
+      fill=white,
+      drop shadow={shadow xshift=0.25ex,shadow yshift=-0.25ex,fill=black,opacity=0.75},
+      rectangle,
+      rounded corners=2pt,
+      inner sep=1pt,
+      line width=0.5pt,
+      font=\scriptsize\sffamily
+    ](key) { #1\strut}
+  ;
+}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language spanish
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman palatino
+\font_sans berasans
+\font_typewriter cmtt
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_title "Proyecto Prolog"
+\pdf_author "Esteban Rodriguez Betancourt"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Universidad de Costa Rica
+\begin_inset Newline newline
+\end_inset
+
+
+\size normal
+Escuela de Ciencias de la Computación e Informática
+\size default
+
+\begin_inset Newline newline
+\end_inset
+
+
+\size normal
+Laboratorio de Redes
+\size default
+
+\begin_inset Newline newline
+\end_inset
+
+Implementación de un Chat en LAN
+\end_layout
+
+\begin_layout Author
+Esteban Rodríguez Betancourt
+\begin_inset Newline newline
+\end_inset
+
+B15512
+\end_layout
+
+\begin_layout Date
+Domingo 25 de mayo, 2014 | I Semestre
+\end_layout
+
+\begin_layout Abstract
+El presente proyecto consiste realizar un chat que permite a los miembros
+ de una LAN conversar entre sí, ya sea uno a uno o en grupos.
+\end_layout
+
+\begin_layout Abstract
+El programa permite descubrir los pares dentro de la red, así como agregarlos
+ a una conversación.
+\end_layout
+
+\begin_layout Section
+Requisitos
+\end_layout
+
+\begin_layout Standard
+El proyecto requiere Java 8, se puede descargar un Netbeans con el JDK desde
+ el siguiente link: 
+\begin_inset CommandInset href
+LatexCommand href
+name "http://www.oracle.com/technetwork/java/javase/downloads/jdk-netbeans-jsp-142931.html"
+target "http://www.oracle.com/technetwork/java/javase/downloads/jdk-netbeans-jsp-142931.html"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Utilización
+\end_layout
+
+\begin_layout Standard
+Al arrancar el programa este hará ping en la red, para buscar pares.
+ Estos aparecerán en la lista.
+ 
+\end_layout
+
+\begin_layout Standard
+Con click derecho sobre cada par uno puede hacer un chat nuevo o bien añadirlos
+ al chat que se está mostrando.
+\end_layout
+
+\begin_layout Section
+Detalles de implementación
+\end_layout
+
+\begin_layout Standard
+La interfaz gráfica fue implementada usando Java 8, la cual tiene ciertas
+ ventajas sobre Swing.
+ Una de las características interesantes que presenta es el binding entre
+ objetos de la GUI y objetos del modelo subyacente, donde un cambio en uno
+ de los extremos se propaga al otro.
+\end_layout
+
+\begin_layout Standard
+El chat está implementado por 4 
+\begin_inset Quotes eld
+\end_inset
+
+servidores
+\begin_inset Quotes erd
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Description
+ServidorBroadcast: Este servidor se encarga de enviar pings en broadcast
+ periódicamente con el nickname del nodo al puerto 13340.
+\end_layout
+
+\begin_layout Description
+ClienteBroadcast: Está escuchando en UDP en el puerto 13340.
+ Recibe cada paquete y con esto actualiza la lista de pares conectados.
+\end_layout
+
+\begin_layout Description
+ServidorChat: Este servidor se encarga de esperar los paquetes TCP en el
+ puerto 13345, que contienen mensajes sobre un chat.
+\end_layout
+
+\begin_layout Description
+Servidor: No contiene ningún servidor, pero se encarga de coordinarlos.
+ También se encarga de enviar los mensajes a los otros nodos.
+\end_layout
+
+\begin_layout Standard
+La serialización de los mensajes se da usando la interfaz de serialización
+ de Java.
+ Esto permite enviar objetos por red fácilmente.
+ Tanto los mensajes como los peers son transmitidos usando este esquema.
+\end_layout
+
+\begin_layout Standard
+Se utilizó Git como sistema de control de versiones.
+ El código fuente del programa está disponible en: 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/estebarb/ChatRedes2"
+target "https://github.com/estebarb/ChatRedes2"
+
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Section
+Estado del proyecto: 
+\end_layout
+
+\begin_layout Standard
+Se probó en una LAN con Ubuntu y dos Xubuntu en VirtualBox (conexión en
+ puente).
+ Funcionó correctamente.
+\end_layout
+
+\begin_layout Standard
+Se llegó a probar el chat entre dos y tres miembros, y en ambos casos se
+ logró hacer la conversación con éxito.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/funciona2 Captura de pantalla de 2014-05-25 16:51:25.png
+	lyxscale 50
+	width 12cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Chat entre 3 pares
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Posibles fallos
+\end_layout
+
+\begin_layout Standard
+Es posible que el firewall o la protección DDoS del router impida la transmisión
+ de paquetes.
+\end_layout
+
+\end_body
+\end_document
